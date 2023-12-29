@@ -1,8 +1,8 @@
-import csv
 import json
 import os
 import redis
 from dotenv import load_dotenv
+import time
 
 outputFolder = "./output/"
 dataFolder = "./data/"
@@ -23,6 +23,7 @@ def populateRedis(jsonData):
     for pokemon in jsonData:
         print("Adding pokemon: " + pokemon['name']+".")
         redis_client.set(pokemon['pokedex_number'], json.dumps(pokemon))
+        time.sleep(0.01)
 
 def main():
     validateFolders()
