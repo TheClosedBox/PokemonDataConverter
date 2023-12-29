@@ -2,8 +2,8 @@ import csv
 import json
 import os
 
-outputFolder = "output/"
-dataFolder = "data/"
+outputFolder = "./output/"
+dataFolder = "./data/"
 
 def validateFolders():
     for folder in [outputFolder, dataFolder]:
