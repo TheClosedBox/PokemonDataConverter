@@ -21,13 +21,14 @@ def validateFolders():
 
 def populateRedis(jsonData):
     for pokemon in jsonData:
+        print("Adding pokemon: " + pokemon['name']+".")
         redis_client.set(pokemon['pokedex_number'], json.dumps(pokemon))
 
 def main():
     validateFolders()
 
     with open(outputFolder+'exp_growth.json') as pokemonData:
-        populateRedis(pokemonData)
+        populateRedis(json.load(pokemonData))
 
 if __name__ == "__main__":
     main()
