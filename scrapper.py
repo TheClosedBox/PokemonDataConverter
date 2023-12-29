@@ -1,14 +1,27 @@
 import csv
 import json
 import os
+import redis
+from dotenv import load_dotenv
 
 outputFolder = "./output/"
 dataFolder = "./data/"
+
+load_dotenv()
+
+redis_host = os.getenv("REDIS_HOST")
+redis_port = os.getenv("REDIS_PORT")
+redis_password = os.getenv("REDIS_PASSWORD")
+redis_client = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password, decode_responses=True)
 
 def validateFolders():
     for folder in [outputFolder, dataFolder]:
         if not os.path.exists(folder):
             os.makedirs(folder)
+
+def populateRedis(jsonData):
+    for pokemon in jsonData:
+        redis_client.set(pokemon['pokedex_number'], json.dumps(pokemon))
 
 def main():
     validateFolders()
@@ -69,13 +82,7 @@ def main():
             }
             
             pokemonsData.append(pokemonExpData)
-            
-        exp_growth_json = json.dumps(pokemonsData, indent=4)
-        exp_growth_output_filename = "output/exp_growth.json"
-        if not os.path.exists(exp_growth_output_filename):
-            open(exp_growth_output_filename, 'w').close()
-        with open(exp_growth_output_filename, "w") as outfile:
-            outfile.write(exp_growth_json)
+        populateRedis(pokemonsData)
 
 if __name__ == "__main__":
     main()
