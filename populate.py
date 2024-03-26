@@ -43,6 +43,8 @@ def populateRedis(jsonData, dataType):
 def main():
     validateFolders()
 
+    print('test')
+
     with open(dataFolder+'items.json') as itemData:
         populateRedis(json.load(itemData), DataTypes.ITEMS)
 
