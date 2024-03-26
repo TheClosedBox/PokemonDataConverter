@@ -8,11 +8,10 @@ itemsUrl = "https://raw.githubusercontent.com/Team-Porygon-PokeMMO/PokeMMO-Data/
 pokemonUrl = "https://raw.githubusercontent.com/Team-Porygon-PokeMMO/PokeMMO-Data/main/monsters.json"
 pokemonMoves = "https://raw.githubusercontent.com/Team-Porygon-PokeMMO/PokeMMO-Data/main/skills.json"
 
-outputFolder = "./output/"
 dataFolder = "./data/"
 
 def validateFolders():
-    for folder in [outputFolder, dataFolder]:
+    for folder in [dataFolder]:
         if not os.path.exists(folder):
             os.makedirs(folder)
 
