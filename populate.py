@@ -29,10 +29,13 @@ def validateFolders():
 def populateRedis(jsonData, dataType):
         for data in jsonData:
             if(dataType == DataTypes.ITEMS):
+                print('Inserting item: ' + data['id'])
                 redis_items_client.set(data['id'], json.dumps(data))
             elif(dataType == DataTypes.POKEMON):
+                print('Inserting pokemon: ' + data['id'])
                 redis_pokemon_client.set(data['id'], json.dumps(data))
             elif(dataType == DataTypes.MOVES):
+                print('Inserting move: ' + data['id'])
                 redis_moves_client.set(data['id'], json.dumps(data))
 
             time.sleep(0.001)
