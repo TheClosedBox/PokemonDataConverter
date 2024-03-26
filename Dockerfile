@@ -4,4 +4,4 @@ FROM python:3.9-alpine3.15
 WORKDIR /app
 COPY . .
 RUN pip install --disable-pip-version-check -q -r requirements.txt
-ENTRYPOINT ["/docker_entrypoint.sh"]
+ENTRYPOINT ["python", "main.py"]
