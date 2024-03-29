@@ -59,9 +59,6 @@ load_dotenv()
 redis_host = os.getenv("REDIS_HOST")
 redis_port = os.getenv("REDIS_PORT")
 redis_password = os.getenv("REDIS_PASSWORD")
-redis_pokemon_client = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password, decode_responses=True, db=0)
-redis_items_client = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password, decode_responses=True, db=1)
-redis_moves_client = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password, decode_responses=True, db=2)
 
 class DataTypes(Enum):
     ITEMS = 1
@@ -69,6 +66,12 @@ class DataTypes(Enum):
     MOVES = 3,
     ABILITIES = 4,
     LOCATIONS = 5
+
+redis_pokemon_client = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password, decode_responses=True, db=DataTypes.POKEMON)
+redis_items_client = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password, decode_responses=True, db=DataTypes.ITEMS)
+redis_moves_client = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password, decode_responses=True, db=DataTypes.MOVES)
+redis_abilities_client = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password, decode_responses=True, db=DataTypes.ABILITIES)
+redis_locations_client = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password, decode_responses=True, db=DataTypes.LOCATIONS)
 
 def populate_edis(json_data, data_type):
     for data in json_data:
@@ -79,9 +82,9 @@ def populate_edis(json_data, data_type):
         elif(data_type == DataTypes.MOVES):
             redis_moves_client.set(data['id'], json.dumps(data))
         elif(data_type == DataTypes.ABILITIES):
-            redis_moves_client.set(data['id'], json.dumps(data))
+            redis_abilities_client.set(data['id'], json.dumps(data))
         elif(data_type == DataTypes.LOCATIONS):
-            redis_moves_client.set(data['location'], json.dumps(data))
+            redis_locations_client.set(data['location'], json.dumps(data))
         time.sleep(0.01)
 
 def populate():
