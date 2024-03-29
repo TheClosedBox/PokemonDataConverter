@@ -78,7 +78,7 @@ def populate_edis(json_data, data_type):
             redis_moves_client.set(data['id'], json.dumps(data))
         elif(data_type == DataTypes.LOCATIONS):
             redis_moves_client.set(data['id'], json.dumps(data))
-        # time.sleep(0.01)
+        time.sleep(0.01)
 
 def populate():
     with open(itemsFile,"w", encoding="utf-8") as itemData:
