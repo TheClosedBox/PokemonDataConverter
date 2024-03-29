@@ -8,6 +8,7 @@ import json
 import os
 import requests
 import io
+import shutil
 
 # Constants
 itemsUrl = "https://raw.githubusercontent.com/Team-Porygon-PokeMMO/PokeMMO-Data/main/items.json"
@@ -26,6 +27,9 @@ def validate_folders():
     for folder in [dataFolder]:
         if not os.path.exists(folder):
             os.makedirs(folder)
+            return
+        shutil.rmtree(folder)
+        os.makedirs(folder)
 
 def file_exists(file_path):
     if os.path.exists(file_path):
@@ -81,15 +85,15 @@ def populate_edis(json_data, data_type):
         time.sleep(0.01)
 
 def populate():
-    with open(itemsFile,"w", encoding="utf-8") as itemData:
+    with open(itemsFile,"r", encoding="utf-8") as itemData:
         populate_edis(json.load(itemData), DataTypes.ITEMS)
-    with open(monstersFile,"w", encoding="utf-8") as monstersData:
+    with open(monstersFile,"r", encoding="utf-8") as monstersData:
         populate_edis(json.load(monstersData), DataTypes.POKEMON)
-    with open(skillsFile,"w", encoding="utf-8") as skillsData:
+    with open(skillsFile,"r", encoding="utf-8") as skillsData:
         populate_edis(json.load(skillsData), DataTypes.MOVES)
-    with open(abilitiesFile,"w", encoding="utf-8") as abilitiesData:
+    with open(abilitiesFile,"r", encoding="utf-8") as abilitiesData:
         populate_edis(json.load(abilitiesData), DataTypes.ABILITIES)
-    with open(locationsFile,"w", encoding="utf-8") as locationsData:
+    with open(locationsFile,"r", encoding="utf-8") as locationsData:
         populate_edis(json.load(locationsData), DataTypes.LOCATIONS)
     
 def extract_abilities():
