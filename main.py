@@ -81,7 +81,7 @@ def populate_edis(json_data, data_type):
         elif(data_type == DataTypes.ABILITIES):
             redis_moves_client.set(data['id'], json.dumps(data))
         elif(data_type == DataTypes.LOCATIONS):
-            redis_moves_client.set(data['id'], json.dumps(data))
+            redis_moves_client.set(data['location'], json.dumps(data))
         time.sleep(0.01)
 
 def populate():
